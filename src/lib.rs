@@ -3,5 +3,5 @@ pub mod common {
 }
 
 pub mod solutions {
-    pub mod day1;
+    pub mod day1_2018;
 }
