@@ -11,6 +11,7 @@ fn main() {
 
     let mut solvers: HashMap<String, fn(String)> = HashMap::new();
     solvers.insert(String::from("day1-2018"), solutions::day1_2018::solve);
+    solvers.insert(String::from("day2-2018"), solutions::day2_2018::solve);
 
     if args.len() != 3 {
         eprintln!("Usage: cargo run <day> <input>");
