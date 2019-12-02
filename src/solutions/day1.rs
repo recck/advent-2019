@@ -11,14 +11,11 @@ pub fn solve(input: String) {
         part1_sum += required_fuel(mass);
 
         let mut addtl_fuel = required_fuel(mass);
-        let mut intermediate_sum: i32 = 0;
 
         while addtl_fuel >= 0 {
-            intermediate_sum += addtl_fuel;
+            part2_sum += addtl_fuel;
             addtl_fuel = required_fuel(addtl_fuel);
         }
-
-        part2_sum += intermediate_sum;
     }
 
     println!("Part 1: {}", part1_sum);
