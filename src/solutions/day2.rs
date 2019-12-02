@@ -11,11 +11,9 @@ pub fn solve(input: String) {
 
     println!("Part 1: {}", part1_opcodes[0]);
 
-    let parts: Vec<i32> = (0..100).collect();
-
-    for (noun, verb) in iproduct!(0..100, parts.iter()) {
+    for (noun, verb) in iproduct!(0..100, 0..100) {
         let mut cur_opcodes = opcodes.to_vec();
-        process_opcodes(&mut cur_opcodes, noun, *verb);
+        process_opcodes(&mut cur_opcodes, noun, verb);
 
         if cur_opcodes[0] == 19690720 {
             println!("Part 2: {}", 100 * noun + verb);
