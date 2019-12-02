@@ -7,10 +7,10 @@ pub fn solve(input: String) {
     let mut part1_sum: i32 = 0;
     let mut part2_sum: i32 = 0;
 
-    for mass in &numbers {
-        part1_sum += required_fuel(*mass);
+    for mass in numbers {
+        part1_sum += required_fuel(mass);
 
-        let mut addtl_fuel = required_fuel(*mass);
+        let mut addtl_fuel = required_fuel(mass);
         let mut intermediate_sum: i32 = 0;
 
         while addtl_fuel >= 0 {
@@ -19,7 +19,6 @@ pub fn solve(input: String) {
         }
 
         part2_sum += intermediate_sum;
-        
     }
 
     println!("Part 1: {}", part1_sum);
