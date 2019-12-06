@@ -16,6 +16,7 @@ fn main() {
     solvers.insert(String::from("day2"), solutions::day2::solve);
     solvers.insert(String::from("day3"), solutions::day3::solve);
     solvers.insert(String::from("day4"), solutions::day4::solve);
+    solvers.insert(String::from("day5"), solutions::day5::solve);
 
     if args.len() != 3 {
         eprintln!("Usage: cargo run <day> <input>");
