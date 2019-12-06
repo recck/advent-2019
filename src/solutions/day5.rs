@@ -28,7 +28,10 @@ pub fn solve(input: String) {
     let opcodes: Vec<i32> = input.split(',').map(|s| s.parse().unwrap()).collect();
 
     let mut part1_opcodes = opcodes.to_vec();
-    process_opcodes(&mut part1_opcodes, 5);
+    process_opcodes(&mut part1_opcodes, 1);
+
+    let mut part2_opcodes = opcodes.to_vec();
+    process_opcodes(&mut part2_opcodes, 5);
 }
 
 fn process_opcodes(opcodes: &mut Vec<i32>, input: i32) {
