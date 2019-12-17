@@ -9,8 +9,8 @@ pub fn solve(input: String) {
         .map(|c| c.to_digit(10).unwrap())
         .collect();
 
-    let width: usize = 25;
-    let height: usize = 6;
+    let width: usize = 3;
+    let height: usize = 2;
     let chunk_size: usize = width * height;
 
     let mut chunks: ChunksExactMut<'_, u32> = input_string.chunks_exact_mut(chunk_size);
@@ -30,7 +30,7 @@ pub fn solve(input: String) {
             let working_at: u32 = working_layer[i];
             let chunk_at: u32 = chunk[i];
 
-            if chunk_at < working_at {
+            if working_at == 2 && chunk_at < 2 {
                 working_layer[i] = chunk_at;
             }
         }
