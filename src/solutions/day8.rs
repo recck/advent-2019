@@ -1,6 +1,4 @@
 use std::slice::ChunksExactMut;
-use itertools::join;
-
 
 pub fn solve(input: String) {
     let mut input_string: Vec<u32> = input
@@ -9,14 +7,14 @@ pub fn solve(input: String) {
         .map(|c| c.to_digit(10).unwrap())
         .collect();
 
-    let width: usize = 3;
-    let height: usize = 2;
+    let width: usize = 25;
+    let height: usize = 6;
     let chunk_size: usize = width * height;
 
     let mut chunks: ChunksExactMut<'_, u32> = input_string.chunks_exact_mut(chunk_size);
     let mut min_zero: usize = std::u32::MAX as usize;
     let mut cur_count: usize = 0;
-    let mut working_layer = chunks.nth(0).unwrap();
+    let working_layer = chunks.nth(0).unwrap();
 
     for chunk in chunks {
         let zeros = count_number(chunk, 0);
@@ -37,7 +35,19 @@ pub fn solve(input: String) {
     }
 
     println!("Part 1: {}", cur_count);
-    println!("{:?}", join(working_layer.into_iter(), ""));
+    let windows = working_layer.chunks_exact(width);
+    println!("Part 2: ");
+
+    for window_chunks in windows {
+        for c in window_chunks {
+            if *c == 1 {
+                print!("#");
+            } else {
+                print!(" ");
+            }
+        }
+        println!("");
+    }
 }
 
 fn count_number(chunk: &[u32], number: u32) -> usize {
