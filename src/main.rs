@@ -1,10 +1,7 @@
+use advent::{common::file, solutions};
+use std::collections::HashMap;
 use std::env;
 use std::process;
-use std::collections::HashMap;
-use advent::{
-    common::file,
-    solutions
-};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -18,6 +15,7 @@ fn main() {
     solvers.insert(String::from("day4"), solutions::day4::solve);
     solvers.insert(String::from("day5"), solutions::day5::solve);
     solvers.insert(String::from("day8"), solutions::day8::solve);
+    solvers.insert(String::from("day12"), solutions::day12::solve);
 
     if args.len() != 3 {
         eprintln!("Usage: cargo run <day> <input>");
@@ -39,7 +37,7 @@ fn main() {
         Some(solver) => {
             println!("Running {} with {}", advent, input_path);
             solver(contents);
-        },
+        }
         None => {
             eprintln!("Solver `{}` does not exist", advent);
             process::exit(1);

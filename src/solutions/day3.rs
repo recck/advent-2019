@@ -1,5 +1,5 @@
+use std::cmp::{max, min};
 use std::collections::HashMap;
-use std::cmp::{min, max};
 
 pub fn solve(input: String) {
     let wires: Vec<Vec<&str>> = input
@@ -74,7 +74,7 @@ pub fn solve(input: String) {
 
     let mut min_manhattan: i32 = std::i32::MAX;
     let mut min_steps: i32 = std::i32::MAX;
-    
+
     let mut intersections = grid.clone();
     intersections.retain(|k, v| k != &central_coord && v.len() > 1);
 

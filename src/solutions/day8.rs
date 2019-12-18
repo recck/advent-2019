@@ -18,7 +18,7 @@ pub fn solve(input: String) {
 
     for chunk in chunks {
         let zeros = count_number(chunk, 0);
-        
+
         if zeros < min_zero {
             min_zero = zeros;
             cur_count = count_number(chunk, 1) * count_number(chunk, 2);

@@ -43,10 +43,12 @@ fn valid_password(number: i32) -> (bool, bool) {
         prev = c;
     }
 
-    let has_only_adjacent: bool = number_string.chars()
-        .filter(|c| {
-            number_string.matches(*c).collect::<String>().len() == 2}
-        ).dedup().count() > 0;
+    let has_only_adjacent: bool = number_string
+        .chars()
+        .filter(|c| number_string.matches(*c).collect::<String>().len() == 2)
+        .dedup()
+        .count()
+        > 0;
 
     (has_double, has_only_adjacent)
 }

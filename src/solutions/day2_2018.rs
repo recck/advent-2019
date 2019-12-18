@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use itertools::Itertools;
+use std::collections::HashMap;
 
 pub fn solve(input: String) {
     let id_list: Vec<String> = input
@@ -16,7 +16,7 @@ pub fn solve(input: String) {
             match freq.get_mut(&c) {
                 Some(character) => {
                     *character += 1;
-                },
+                }
                 None => {
                     freq.insert(c, 1);
                 }
@@ -34,26 +34,31 @@ pub fn solve(input: String) {
 
     println!("Part 1: {}", twos * threes);
 
-    let mut z = id_list.iter().cartesian_product(id_list.iter()).filter_map(|(a, b)| {
-        let mut same = Vec::new();
-        let mut diff = 0;
+    let mut z = id_list
+        .iter()
+        .cartesian_product(id_list.iter())
+        .filter_map(|(a, b)| {
+            let mut same = Vec::new();
+            let mut diff = 0;
 
-        for (a, b) in a.chars().zip(b.chars()) {
-            if a == b {
-                same.push(a);
-            } else {
-                diff += 1;
+            for (a, b) in a.chars().zip(b.chars()) {
+                if a == b {
+                    same.push(a);
+                } else {
+                    diff += 1;
+                }
+
+                if diff > 1 {
+                    return None;
+                }
             }
 
-            if diff > 1 { return None }
-        }
-
-        match diff {
-            0 => None,
-            1 => Some(same.into_iter().collect::<String>()),
-            _ => None
-        }
-    });
+            match diff {
+                0 => None,
+                1 => Some(same.into_iter().collect::<String>()),
+                _ => None,
+            }
+        });
 
     if let Some(yeet) = z.next() {
         println!("Part 2: {}", yeet);
