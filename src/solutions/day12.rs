@@ -1,22 +1,40 @@
 use itertools::iproduct;
 use regex::Regex;
+use std::clone::Clone;
 
+#[derive(Clone, Copy)]
 struct Position {
     x: i32,
     y: i32,
     z: i32,
 }
 
+#[derive(Clone, Copy)]
 struct Velocity {
     x: i32,
     y: i32,
     z: i32,
 }
 
+#[derive(Clone, Copy)]
 struct Moon {
     id: usize,
     position: Position,
     velocity: Velocity,
+}
+
+impl Moon {
+    fn update_velocity(&mut self, velocity: Velocity) {
+        self.velocity.x += velocity.x;
+        self.velocity.y += velocity.y;
+        self.velocity.z += velocity.z;
+    }
+
+    fn update_position(&mut self) {
+        self.position.x += self.velocity.x;
+        self.position.y += self.velocity.y;
+        self.position.z += self.velocity.z;
+    }
 }
 
 pub fn solve(input: String) {
@@ -48,18 +66,37 @@ pub fn solve(input: String) {
         });
     }
 
-    for (&mut moon_a, &mut moon_b) in iproduct!(moons.iter(), moons.iter()) {
-        if moon_a.id == moon_b.id {
-            continue;
+    for moon_a in &mut moons {
+        for moon_b in &mut moons {
+            if moon_a.id == moon_b.id {
+                continue;
+            }
+    
+            let (vel_a, vel_b) = compare_moons(&moon_a, &moon_b);
+            moon_a.update_velocity(vel_a);
+            moon_b.update_velocity(vel_b);
         }
-
-        compare_moons(*moon_a, *moon_b);
     }
 }
 
-fn compare_moons(moon_a: &mut Moon, moon_b: &mut Moon) -> () {
-    if moon_a.position.x < moon_b.position.x {
-        moon_a.position.x += 1;
-        moon_b.position.x -= 1;
+fn compare_moons(moon_a: &Moon, moon_b: &Moon) -> (Velocity, Velocity) {
+    let mut a_velocity = Velocity {x: 0, y: 0, z: 0};
+    let mut b_velocity = Velocity {x: 0, y: 0, z: 0};
+
+    if moon_a.position.x != moon_b.position.x {
+        a_velocity.x = if moon_a.position.x < moon_b.position.x { 1 } else { -1 };
+        b_velocity.x = if moon_a.position.x < moon_b.position.x { -1 } else { 1 };
     }
+
+    if moon_a.position.y != moon_b.position.y {
+        a_velocity.y = if moon_a.position.y < moon_b.position.y { 1 } else { -1 };
+        b_velocity.y = if moon_a.position.y < moon_b.position.y { -1 } else { 1 };
+    }
+
+    if moon_a.position.z != moon_b.position.z {
+        a_velocity.z = if moon_a.position.z < moon_b.position.z { 1 } else { -1 };
+        b_velocity.z = if moon_a.position.z < moon_b.position.z { -1 } else { 1 };
+    }
+
+    (a_velocity, b_velocity)
 }
